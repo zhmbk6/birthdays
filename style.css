@@ -1284,38 +1284,32 @@ margin:30px 0;
     transform:translateY(0);
 
 }
-
-.final-story{
+.before-final{
 
     position:fixed;
-
     inset:0;
 
     background:#000;
 
     display:none;
-
     justify-content:center;
-
     align-items:center;
 
     z-index:999999;
 
 }
 
-.final-box{
+.before-text{
 
-    text-align:center;
+    position:absolute;
+
+    width:90%;
 
     color:white;
 
-}
+    text-align:center;
 
-.final-box p{
-
-    font-size:38px;
-
-    margin:28px 0;
+    font-size:42px;
 
     opacity:0;
 
@@ -1325,10 +1319,100 @@ margin:30px 0;
 
 }
 
+.before-text.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* Соңғы оқиға */
+
+.final-story{
+
+    position:fixed;
+    inset:0;
+
+    background:#000;
+
+    display:none;
+
+    overflow-y:auto;
+
+    z-index:999999;
+
+}
+
+.final-box{
+
+    width:100%;
+
+    max-width:800px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
+    padding:80px 20px;
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.final-box p{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:1s;
+
+    font-size:38px;
+
+    line-height:1.6;
+
+    margin:55px 0;
+
+}
+
 .final-box p.show{
 
     opacity:1;
 
     transform:translateY(0);
+
+}
+
+body.final-open{
+
+    overflow:hidden;
+
+}
+
+@media(max-width:768px){
+
+    .before-text{
+
+        font-size:28px;
+
+    }
+
+    .final-box{
+
+        padding:60px 20px 100px;
+
+    }
+
+    .final-box p{
+
+        font-size:27px;
+
+        margin:45px 0;
+
+    }
 
 }

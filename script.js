@@ -268,140 +268,6 @@ loveBtn.addEventListener("click", () => {
 
 });
 
-
-
-function startFinal(){
-
-    const before=document.getElementById("beforeFinal");
-
-    before.style.display="flex";
-
-    const texts=document.querySelectorAll(".before-text");
-
-    texts.forEach((text,index)=>{
-
-        setTimeout(()=>{
-
-            text.classList.add("show");
-
-        },index*2500);
-
-        setTimeout(()=>{
-
-            text.classList.remove("show");
-
-        },index*2500+1800);
-
-    });
-
-    setTimeout(()=>{
-
-        before.style.display="none";
-
-        document.getElementById("finalStory").style.display="flex";
-
-        const lines=document.querySelectorAll(".final-box p");
-
-        lines.forEach((line,index)=>{
-
-            setTimeout(()=>{
-
-                line.classList.add("show");
-
-            },index*2200);
-
-        });
-
-    },11000);
-
-}
-
-function startFinal() {
-
-    const before = document.getElementById("beforeFinal");
-
-    before.style.display = "flex";
-
-    const texts = document.querySelectorAll(".before-text");
-
-    texts.forEach((text, index) => {
-
-        setTimeout(() => {
-            text.classList.add("show");
-        }, index * 2500);
-
-        setTimeout(() => {
-            text.classList.remove("show");
-        }, index * 2500 + 1800);
-
-    });
-
-    setTimeout(() => {
-
-        before.style.display = "none";
-
-        document.getElementById("finalStory").style.display = "flex";
-
-        const lines = document.querySelectorAll(".final-box p");
-
-        lines.forEach((line, index) => {
-
-            setTimeout(() => {
-
-                line.classList.add("show");
-
-            }, index * 2200);
-
-        });
-
-    }, 11000);
-
-}
-
-
-
-function startFinal() {
-
-    const before = document.getElementById("beforeFinal");
-
-    before.style.display = "flex";
-
-    const texts = document.querySelectorAll(".before-text");
-
-    texts.forEach((text, index) => {
-
-        setTimeout(() => {
-            text.classList.add("show");
-        }, index * 2500);
-
-        setTimeout(() => {
-            text.classList.remove("show");
-        }, index * 2500 + 1800);
-
-    });
-
-    setTimeout(() => {
-
-        before.style.display = "none";
-
-        document.getElementById("finalStory").style.display = "flex";
-
-        const lines = document.querySelectorAll(".final-box p");
-
-        lines.forEach((line, index) => {
-
-            setTimeout(() => {
-
-                line.classList.add("show");
-
-            }, index * 2200);
-
-        });
-
-    }, 11000);
-
-}
-
 const sendPromo = document.getElementById("sendPromo");
 
 if (sendPromo) {
@@ -414,22 +280,47 @@ if (sendPromo) {
 
 }
 
+
 function startFinal() {
 
     const before = document.getElementById("beforeFinal");
+    const finalStory = document.getElementById("finalStory");
+    const giftModal = document.getElementById("giftModal");
 
-    before.style.display = "flex";
+    if (!before || !finalStory) {
+        return;
+    }
+
+    if (giftModal) {
+        giftModal.style.display = "none";
+    }
 
     const texts = document.querySelectorAll(".before-text");
+    const lines = document.querySelectorAll(".final-box p");
+
+    texts.forEach(text => {
+        text.classList.remove("show");
+    });
+
+    lines.forEach(line => {
+        line.classList.remove("show");
+    });
+
+    finalStory.style.display = "none";
+    before.style.display = "flex";
 
     texts.forEach((text, index) => {
 
         setTimeout(() => {
+
             text.classList.add("show");
+
         }, index * 2500);
 
         setTimeout(() => {
+
             text.classList.remove("show");
+
         }, index * 2500 + 1800);
 
     });
@@ -438,9 +329,10 @@ function startFinal() {
 
         before.style.display = "none";
 
-        document.getElementById("finalStory").style.display = "flex";
+        finalStory.style.display = "block";
+        finalStory.scrollTop = 0;
 
-        const lines = document.querySelectorAll(".final-box p");
+        document.body.classList.add("final-open");
 
         lines.forEach((line, index) => {
 
@@ -448,23 +340,42 @@ function startFinal() {
 
                 line.classList.add("show");
 
-            }, index * 2200);
+                line.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }, index * 2000);
 
         });
 
-    }, 11000);
+    }, 10500);
 
 }
 
-window.addEventListener("focus", () => {
 
-    if (localStorage.getItem("showFinal") === "yes") {
+function checkFinal() {
 
-        localStorage.removeItem("showFinal");
+    if (localStorage.getItem("showFinal") !== "yes") {
+        return;
+    }
 
-        document.getElementById("giftModal").style.display = "none";
+    localStorage.removeItem("showFinal");
 
-        startFinal();
+    startFinal();
+
+}
+
+
+window.addEventListener("focus", checkFinal);
+
+window.addEventListener("pageshow", checkFinal);
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.visibilityState === "visible") {
+
+        checkFinal();
 
     }
 
