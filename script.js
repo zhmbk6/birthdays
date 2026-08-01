@@ -130,3 +130,23 @@ if(index >= reasons.length){
     }, 200);
 
 });
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+musicBtn.addEventListener("click",()=>{
+
+    if(music.paused){
+
+        music.play();
+
+        musicBtn.textContent="💖 Музыка играет...";
+
+    }else{
+
+        music.pause();
+
+        musicBtn.textContent="❤️ Перед тем как продолжить...";
+
+    }
+
+});
