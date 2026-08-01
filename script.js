@@ -157,3 +157,22 @@ startBtn.addEventListener("click",()=>{
     },2200);
 
 });
+function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.className="fly-heart";
+
+    heart.innerHTML=Math.random()>0.5 ? "❤️" : "💖";
+
+    heart.style.left=Math.random()*100+"%";
+
+    document.querySelector(".intro-hearts").appendChild(heart);
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },3000);
+
+}
