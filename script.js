@@ -130,23 +130,16 @@ if(index >= reasons.length){
     }, 200);
 
 });
+const intro = document.getElementById("intro");
+
+const startBtn = document.getElementById("startBtn");
+
 const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
 
-musicBtn.addEventListener("click",()=>{
+startBtn.addEventListener("click",()=>{
 
-    if(music.paused){
+    music.play();
 
-        music.play();
-
-        musicBtn.textContent="💖 Музыка играет...";
-
-    }else{
-
-        music.pause();
-
-        musicBtn.textContent="❤️ Перед тем как продолжить...";
-
-    }
+    intro.classList.add("hide");
 
 });
