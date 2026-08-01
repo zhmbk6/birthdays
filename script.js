@@ -140,6 +140,20 @@ startBtn.addEventListener("click",()=>{
 
     music.play();
 
-    intro.classList.add("hide");
+    for(let i=0;i<25;i++){
+
+        setTimeout(()=>{
+
+            createHeart();
+
+        },i*100);
+
+    }
+
+    setTimeout(()=>{
+
+        intro.classList.add("hide");
+
+    },2200);
 
 });

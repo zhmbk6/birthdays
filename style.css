@@ -754,3 +754,52 @@ margin:30px 0;
     }
 
 }
+.intro-hearts{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.fly-heart{
+
+    position:absolute;
+
+    bottom:-30px;
+
+    font-size:28px;
+
+    animation:flyHeart 3s linear forwards;
+
+}
+
+@keyframes flyHeart{
+
+    0%{
+
+        transform:translateY(0) scale(.5);
+
+        opacity:0;
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(-120vh) scale(1.5) rotate(25deg);
+
+        opacity:0;
+
+    }
+
+}
