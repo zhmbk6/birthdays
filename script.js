@@ -205,8 +205,28 @@ galleryImages.forEach(image=>{
     observer.observe(image);
 
 });
-document.getElementById("showGift").addEventListener("click",()=>{
+const showGift = document.getElementById("showGift");
 
-    alert("❤️ Подожди...");
+const giftModal = document.getElementById("giftModal");
+
+const giftLoading = document.getElementById("giftLoading");
+
+const giftContent = document.getElementById("giftContent");
+
+showGift.addEventListener("click",()=>{
+
+    giftModal.style.display="flex";
+
+    giftLoading.style.display="block";
+
+    giftContent.style.display="none";
+
+    setTimeout(()=>{
+
+        giftLoading.style.display="none";
+
+        giftContent.style.display="block";
+
+    },2500);
 
 });

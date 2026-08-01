@@ -997,3 +997,118 @@ margin:30px 0;
     transform:scale(1.08);
 
 }
+.gift-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.85);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999999;
+
+}
+
+.gift-box{
+
+    width:90%;
+
+    max-width:500px;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:50px;
+
+    text-align:center;
+
+    animation:showGift .5s;
+
+}
+
+@keyframes showGift{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+.gift-icon{
+
+    font-size:80px;
+
+    animation:bounce 1s infinite;
+
+}
+
+@keyframes bounce{
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+}
+
+.promo-code{
+
+    margin:30px 0;
+
+    font-size:42px;
+
+    color:#ff4f88;
+
+    font-weight:bold;
+
+    letter-spacing:5px;
+
+}
+
+.gift-btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    background:#25D366;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:18px 35px;
+
+    border-radius:50px;
+
+    font-size:20px;
+
+    transition:.3s;
+
+}
+
+.gift-btn:hover{
+
+    transform:scale(1.05);
+
+}
