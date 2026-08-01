@@ -230,3 +230,80 @@ showGift.addEventListener("click",()=>{
     },2500);
 
 });
+const loveBtn = document.getElementById("loveBtn");
+const loveValue = document.getElementById("loveValue");
+const loveMessage = document.getElementById("loveMessage");
+
+loveBtn.addEventListener("click", () => {
+
+    loveBtn.disabled = true;
+
+    let percent = 0;
+
+    const timer = setInterval(() => {
+
+        percent++;
+
+        loveValue.innerHTML = percent + "%";
+
+        if(percent >= 100){
+
+            clearInterval(timer);
+
+            setTimeout(() => {
+
+                loveValue.innerHTML = "∞ ❤️";
+
+                loveMessage.innerHTML =
+                "Потому что моя любовь к тебе бесконечна ❤️";
+
+                loveMessage.style.opacity = "1";
+                loveMessage.style.transform = "translateY(0)";
+
+            },500);
+
+        }
+
+    },100);
+
+});
+const sendPromo = document.getElementById("sendPromo");
+
+if(sendPromo){
+
+    sendPromo.addEventListener("click",()=>{
+
+        localStorage.setItem("showFinal","yes");
+
+    });
+
+}
+
+document.addEventListener("visibilitychange", () => {
+
+    if (
+        document.visibilityState === "visible" &&
+        localStorage.getItem("showFinal") === "yes"
+    ) {
+
+        localStorage.removeItem("showFinal");
+
+        document.getElementById("giftModal").style.display = "none";
+
+        document.getElementById("finalStory").style.display = "flex";
+
+        const lines = document.querySelectorAll(".final-box p");
+
+        lines.forEach((line, index) => {
+
+            setTimeout(() => {
+
+                line.classList.add("show");
+
+            }, index * 2200);
+
+        });
+
+    }
+
+});
