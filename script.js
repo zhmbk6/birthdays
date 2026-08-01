@@ -326,17 +326,41 @@ function startFinal(){
     },11000);
 
 }
+const sendPromo = document.getElementById("sendPromo");
 
-document.addEventListener("visibilitychange", () => {
+if (sendPromo) {
 
-    if (
-        document.visibilityState === "visible" &&
-        localStorage.getItem("showFinal") === "yes"
-    ) {
+    sendPromo.addEventListener("click", () => {
 
-        localStorage.removeItem("showFinal");
+        localStorage.setItem("showFinal", "yes");
 
-        document.getElementById("giftModal").style.display = "none";
+    });
+
+}
+
+function startFinal() {
+
+    const before = document.getElementById("beforeFinal");
+
+    before.style.display = "flex";
+
+    const texts = document.querySelectorAll(".before-text");
+
+    texts.forEach((text, index) => {
+
+        setTimeout(() => {
+            text.classList.add("show");
+        }, index * 2500);
+
+        setTimeout(() => {
+            text.classList.remove("show");
+        }, index * 2500 + 1800);
+
+    });
+
+    setTimeout(() => {
+
+        before.style.display = "none";
 
         document.getElementById("finalStory").style.display = "flex";
 
@@ -351,6 +375,128 @@ document.addEventListener("visibilitychange", () => {
             }, index * 2200);
 
         });
+
+    }, 11000);
+
+}
+
+const sendPromo = document.getElementById("sendPromo");
+
+if (sendPromo) {
+
+    sendPromo.addEventListener("click", () => {
+
+        localStorage.setItem("showFinal", "yes");
+
+    });
+
+}
+
+function startFinal() {
+
+    const before = document.getElementById("beforeFinal");
+
+    before.style.display = "flex";
+
+    const texts = document.querySelectorAll(".before-text");
+
+    texts.forEach((text, index) => {
+
+        setTimeout(() => {
+            text.classList.add("show");
+        }, index * 2500);
+
+        setTimeout(() => {
+            text.classList.remove("show");
+        }, index * 2500 + 1800);
+
+    });
+
+    setTimeout(() => {
+
+        before.style.display = "none";
+
+        document.getElementById("finalStory").style.display = "flex";
+
+        const lines = document.querySelectorAll(".final-box p");
+
+        lines.forEach((line, index) => {
+
+            setTimeout(() => {
+
+                line.classList.add("show");
+
+            }, index * 2200);
+
+        });
+
+    }, 11000);
+
+}
+
+const sendPromo = document.getElementById("sendPromo");
+
+if (sendPromo) {
+
+    sendPromo.addEventListener("click", () => {
+
+        localStorage.setItem("showFinal", "yes");
+
+    });
+
+}
+
+function startFinal() {
+
+    const before = document.getElementById("beforeFinal");
+
+    before.style.display = "flex";
+
+    const texts = document.querySelectorAll(".before-text");
+
+    texts.forEach((text, index) => {
+
+        setTimeout(() => {
+            text.classList.add("show");
+        }, index * 2500);
+
+        setTimeout(() => {
+            text.classList.remove("show");
+        }, index * 2500 + 1800);
+
+    });
+
+    setTimeout(() => {
+
+        before.style.display = "none";
+
+        document.getElementById("finalStory").style.display = "flex";
+
+        const lines = document.querySelectorAll(".final-box p");
+
+        lines.forEach((line, index) => {
+
+            setTimeout(() => {
+
+                line.classList.add("show");
+
+            }, index * 2200);
+
+        });
+
+    }, 11000);
+
+}
+
+window.addEventListener("focus", () => {
+
+    if (localStorage.getItem("showFinal") === "yes") {
+
+        localStorage.removeItem("showFinal");
+
+        document.getElementById("giftModal").style.display = "none";
+
+        startFinal();
 
     }
 
