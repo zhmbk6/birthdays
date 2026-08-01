@@ -132,6 +132,8 @@ if(index >= reasons.length){
 });
 const intro = document.getElementById("intro");
 
+const hero = document.querySelector(".hero");
+
 const startBtn = document.getElementById("startBtn");
 
 const music = document.getElementById("bgMusic");
@@ -139,6 +141,8 @@ const music = document.getElementById("bgMusic");
 startBtn.addEventListener("click",()=>{
 
     music.play();
+
+    intro.classList.add("glow");
 
     for(let i=0;i<25;i++){
 
@@ -152,9 +156,11 @@ startBtn.addEventListener("click",()=>{
 
     setTimeout(()=>{
 
-        intro.classList.add("hide");
+    intro.classList.add("hide");
 
-    },2200);
+    hero.classList.add("show");
+
+},2200);
 
 });
 function createHeart(){

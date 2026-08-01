@@ -32,6 +32,70 @@ body{
 
     text-align:center;
 
+    .hero .overlay h2,
+.hero .overlay h1,
+.hero .overlay h3,
+.hero .overlay p,
+.hero .overlay .btn,
+.hero .overlay .scroll-down{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:1s;
+
+    
+
+}
+
+.hero.show .overlay h2{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+.hero.show .overlay h1{
+
+    opacity:1;
+    transform:translateY(0);
+    transition-delay:.3s;
+
+}
+
+.hero.show .overlay h3{
+
+    opacity:1;
+    transform:translateY(0);
+    transition-delay:.6s;
+
+}
+
+.hero.show .overlay p{
+
+    opacity:1;
+    transform:translateY(0);
+    transition-delay:.9s;
+
+}
+
+.hero.show .overlay .btn{
+
+    opacity:1;
+    transform:translateY(0);
+    transition-delay:1.2s;
+
+}
+
+.hero.show .overlay .scroll-down{
+
+    opacity:1;
+    transform:translateY(0);
+    transition-delay:1.5s;
+
+}
+
 }
 
 .overlay{
@@ -820,5 +884,26 @@ margin:30px 0;
         opacity:0;
 
     }
+
+}
+.intro::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:radial-gradient(circle,#ffffff55 0%,transparent 70%);
+
+    opacity:0;
+
+    transition:1.5s;
+
+}
+
+.intro.glow::before{
+
+    opacity:1;
 
 }
