@@ -205,3 +205,8 @@ galleryImages.forEach(image=>{
     observer.observe(image);
 
 });
+document.getElementById("showGift").addEventListener("click",()=>{
+
+    alert("❤️ Подожди...");
+
+});
