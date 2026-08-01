@@ -267,7 +267,6 @@ loveBtn.addEventListener("click", () => {
     },100);
 
 });
-const sendPromo = document.getElementById("sendPromo");
 
 const sendPromo = document.getElementById("sendPromo");
 
@@ -281,25 +280,6 @@ if(sendPromo){
 
 }
 
-document.addEventListener("visibilitychange",()=>{
-
-    if(
-
-        document.visibilityState==="visible" &&
-
-        localStorage.getItem("showFinal")==="yes"
-
-    ){
-
-        localStorage.removeItem("showFinal");
-
-        document.getElementById("giftModal").style.display="none";
-
-        startFinal();
-
-    }
-
-});
 
 function startFinal(){
 
