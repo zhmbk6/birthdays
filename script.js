@@ -268,17 +268,6 @@ loveBtn.addEventListener("click", () => {
 
 });
 
-const sendPromo = document.getElementById("sendPromo");
-
-if(sendPromo){
-
-    sendPromo.addEventListener("click",()=>{
-
-        localStorage.setItem("showFinal","yes");
-
-    });
-
-}
 
 
 function startFinal(){
@@ -326,17 +315,6 @@ function startFinal(){
     },11000);
 
 }
-const sendPromo = document.getElementById("sendPromo");
-
-if (sendPromo) {
-
-    sendPromo.addEventListener("click", () => {
-
-        localStorage.setItem("showFinal", "yes");
-
-    });
-
-}
 
 function startFinal() {
 
@@ -380,17 +358,7 @@ function startFinal() {
 
 }
 
-const sendPromo = document.getElementById("sendPromo");
 
-if (sendPromo) {
-
-    sendPromo.addEventListener("click", () => {
-
-        localStorage.setItem("showFinal", "yes");
-
-    });
-
-}
 
 function startFinal() {
 
