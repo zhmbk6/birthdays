@@ -267,116 +267,192 @@ loveBtn.addEventListener("click", () => {
     },100);
 
 });
+/* ============================= */
+/* ДАУЫСТЫҚ ФИНАЛ */
+/* ============================= */
 
 const sendPromo = document.getElementById("sendPromo");
+
+const voiceSection = document.getElementById("voiceSection");
+const voiceBox = document.getElementById("voiceBox");
+
+const voiceBtn = document.getElementById("voiceBtn");
+const voiceMessage = document.getElementById("voiceMessage");
+
+const theEnd = document.getElementById("theEnd");
+
+let voiceFinalOpened = false;
+
+
+/* Промокодты WhatsApp-қа жібергенін есте сақтайды */
 
 if (sendPromo) {
 
     sendPromo.addEventListener("click", () => {
 
-        localStorage.setItem("showFinal", "yes");
+        localStorage.setItem("showVoiceFinal", "yes");
 
     });
 
 }
 
 
-function startFinal() {
+/* Дауыс тыңдайтын экранды ашады */
 
-    const before = document.getElementById("beforeFinal");
-    const finalStory = document.getElementById("finalStory");
-    const giftModal = document.getElementById("giftModal");
+function showVoiceFinal() {
 
-    if (!before || !finalStory) {
+    if (voiceFinalOpened) {
         return;
     }
+
+    if (
+        !voiceSection ||
+        !voiceBox ||
+        !voiceBtn ||
+        !voiceMessage ||
+        !theEnd
+    ) {
+
+        console.error("Дауыс финалының HTML элементтері табылмады");
+
+        return;
+
+    }
+
+    voiceFinalOpened = true;
+
+    /* Промокод терезесін жабады */
 
     if (giftModal) {
+
         giftModal.style.display = "none";
+
     }
 
-    const texts = document.querySelectorAll(".before-text");
-    const lines = document.querySelectorAll(".final-box p");
+    /* Дауыс экранын бастапқы күйіне қайтарады */
 
-    texts.forEach(text => {
-        text.classList.remove("show");
-    });
+    voiceMessage.pause();
+    voiceMessage.currentTime = 0;
 
-    lines.forEach(line => {
-        line.classList.remove("show");
-    });
+    voiceBox.style.display = "";
+    voiceBox.classList.remove("finished");
 
-    finalStory.style.display = "none";
-    before.style.display = "flex";
+    theEnd.classList.remove("show");
 
-    texts.forEach((text, index) => {
+    voiceBtn.textContent = "▶ Послушать меня";
+    voiceBtn.classList.remove("playing");
 
-        setTimeout(() => {
+    /* Дауыс экранын ашады */
 
-            text.classList.add("show");
-
-        }, index * 2500);
-
-        setTimeout(() => {
-
-            text.classList.remove("show");
-
-        }, index * 2500 + 1800);
-
-    });
-
-    setTimeout(() => {
-
-        before.style.display = "none";
-
-        finalStory.style.display = "block";
-        finalStory.scrollTop = 0;
-
-        document.body.classList.add("final-open");
-
-        lines.forEach((line, index) => {
-
-            setTimeout(() => {
-
-                line.classList.add("show");
-
-                line.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-
-            }, index * 2000);
-
-        });
-
-    }, 10500);
+    voiceSection.classList.add("active");
 
 }
 
 
-function checkFinal() {
+/* WhatsApp-тан сайтқа қайтқанын тексереді */
 
-    if (localStorage.getItem("showFinal") !== "yes") {
+function checkVoiceFinal() {
+
+    if (
+        localStorage.getItem("showVoiceFinal") !== "yes"
+    ) {
+
         return;
+
     }
 
-    localStorage.removeItem("showFinal");
+    localStorage.removeItem("showVoiceFinal");
 
-    startFinal();
+    showVoiceFinal();
 
 }
 
 
-window.addEventListener("focus", checkFinal);
+/* Компьютер және телефон браузерлері үшін */
 
-window.addEventListener("pageshow", checkFinal);
+window.addEventListener("focus", checkVoiceFinal);
+
+window.addEventListener("pageshow", checkVoiceFinal);
 
 document.addEventListener("visibilitychange", () => {
 
     if (document.visibilityState === "visible") {
 
-        checkFinal();
+        checkVoiceFinal();
 
     }
 
 });
+
+
+/* Дауыс батырмасы */
+
+if (voiceBtn && voiceMessage) {
+
+    voiceBtn.addEventListener("click", async () => {
+
+        /* Дауыс ойнап тұрса — пауза */
+
+        if (!voiceMessage.paused) {
+
+            voiceMessage.pause();
+
+            voiceBtn.textContent = "▶ Продолжить";
+            voiceBtn.classList.remove("playing");
+
+            return;
+
+        }
+
+        /* Фондық музыканы тоқтатады */
+
+        if (music) {
+
+            music.pause();
+
+        }
+
+        try {
+
+            voiceMessage.volume = 1;
+
+            await voiceMessage.play();
+
+            voiceBtn.textContent = "⏸ Пауза";
+            voiceBtn.classList.add("playing");
+
+        } catch (error) {
+
+            console.error("Дауыс қосылмады:", error);
+
+            voiceBtn.textContent = "Не удалось включить";
+
+        }
+
+    });
+
+
+    /* Дауыс аяқталған кезде */
+
+    voiceMessage.addEventListener("ended", () => {
+
+        voiceBtn.textContent = "Прослушано ❤️";
+        voiceBtn.classList.remove("playing");
+
+        /* Дауыс карточкасын жоғалтады */
+
+        voiceBox.classList.add("finished");
+
+        /* The End шығарады */
+
+        setTimeout(() => {
+
+            voiceBox.style.display = "none";
+
+            theEnd.classList.add("show");
+
+        }, 1000);
+
+    });
+
+}

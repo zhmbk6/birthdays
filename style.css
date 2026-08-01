@@ -1416,3 +1416,461 @@ body.final-open{
     }
 
 }
+/* ============================= */
+/* ДАУЫСТЫҚ ФИНАЛ */
+/* ============================= */
+
+.voice-section {
+
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #441428 0%,
+            #240914 45%,
+            #100307 100%
+        );
+
+    text-align: center;
+
+    overflow: hidden;
+
+    z-index: 999999;
+
+}
+
+
+/* WhatsApp-тан қайтқанда осы класс қосылады */
+
+.voice-section.active {
+
+    display: flex;
+
+}
+
+
+/* Дауыс тұрған карточка */
+
+.voice-box {
+
+    position: relative;
+
+    width: 100%;
+    max-width: 650px;
+
+    padding: 55px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.55),
+        0 0 50px rgba(255, 71, 126, 0.12);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    opacity: 1;
+
+    transform: scale(1);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        filter 1s ease;
+
+}
+
+
+/* Дауыс аяқталғанда карточка жоғалады */
+
+.voice-box.finished {
+
+    opacity: 0;
+
+    transform: scale(0.82);
+
+    filter: blur(12px);
+
+    pointer-events: none;
+
+}
+
+
+/* Жүрек */
+
+.voice-heart {
+
+    display: block;
+
+    font-size: 65px;
+
+    margin-bottom: 22px;
+
+    filter:
+        drop-shadow(0 0 15px rgba(255, 71, 126, 0.7));
+
+    animation: voiceHeartbeat 1.5s ease-in-out infinite;
+
+}
+
+
+/* Тақырып */
+
+.voice-box h2 {
+
+    color: #ffffff;
+
+    font-size: 38px;
+    font-weight: 500;
+
+    margin: 0 0 18px;
+
+    text-shadow:
+        0 0 15px rgba(255, 255, 255, 0.25);
+
+}
+
+
+/* Сипаттама */
+
+.voice-box p {
+
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: 20px;
+    line-height: 1.7;
+
+    margin: 0 0 35px;
+
+}
+
+
+/* Дауыс батырмасы */
+
+.voice-btn {
+
+    border: none;
+    outline: none;
+
+    padding: 17px 32px;
+
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff477e,
+            #d92d63
+        );
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 35px rgba(255, 71, 126, 0.4),
+        0 0 20px rgba(255, 71, 126, 0.2);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+
+}
+
+
+.voice-btn:hover {
+
+    transform: translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 15px 45px rgba(255, 71, 126, 0.55);
+
+}
+
+
+.voice-btn:active {
+
+    transform: scale(0.97);
+
+}
+
+
+/* Дауыс ойнап тұрғанда */
+
+.voice-btn.playing {
+
+    background:
+        linear-gradient(
+            135deg,
+            #8d2349,
+            #5e142f
+        );
+
+    box-shadow:
+        0 0 35px rgba(255, 71, 126, 0.65);
+
+}
+
+
+/* Audio элементі экранда көрінбейді */
+
+#voiceMessage {
+
+    display: none;
+
+}
+
+
+/* ============================= */
+/* THE END */
+/* ============================= */
+
+.the-end {
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: scale(0.55);
+
+    filter: blur(15px);
+
+    text-align: center;
+
+    pointer-events: none;
+
+}
+
+
+/* Дауыс аяқталғанда осы класс қосылады */
+
+.the-end.show {
+
+    visibility: visible;
+
+    animation: showTheEnd 2.2s ease forwards;
+
+}
+
+
+/* The End мәтіні */
+
+.the-end h2 {
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(55px, 12vw, 120px);
+    font-weight: normal;
+
+    letter-spacing: 10px;
+
+    margin: 20px 0 0;
+
+    text-transform: uppercase;
+
+    animation: endGlow 2s ease-in-out infinite alternate;
+
+}
+
+
+/* The End үстіндегі жүрек */
+
+.end-heart {
+
+    display: block;
+
+    font-size: 80px;
+
+    filter:
+        drop-shadow(0 0 25px rgba(255, 71, 126, 0.9));
+
+    animation: endHeartbeat 1.5s ease-in-out infinite;
+
+}
+
+
+/* ============================= */
+/* АНИМАЦИЯЛАР */
+/* ============================= */
+
+@keyframes voiceHeartbeat {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        transform: scale(1.18);
+
+    }
+
+}
+
+
+@keyframes showTheEnd {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(0.55);
+
+        filter: blur(15px);
+
+    }
+
+    60% {
+
+        opacity: 1;
+
+        transform: scale(1.08);
+
+        filter: blur(0);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+        filter: blur(0);
+
+    }
+
+}
+
+
+@keyframes endGlow {
+
+    from {
+
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.35),
+            0 0 25px rgba(255, 71, 126, 0.45);
+
+    }
+
+    to {
+
+        text-shadow:
+            0 0 25px rgba(255, 255, 255, 0.85),
+            0 0 65px rgba(255, 71, 126, 0.95);
+
+    }
+
+}
+
+
+@keyframes endHeartbeat {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        transform: scale(1.22);
+
+    }
+
+}
+
+
+/* ============================= */
+/* ТЕЛЕФОНҒА АРНАЛҒАН */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    .voice-section {
+
+        padding: 18px;
+
+    }
+
+    .voice-box {
+
+        padding: 45px 22px;
+
+        border-radius: 25px;
+
+    }
+
+    .voice-heart {
+
+        font-size: 55px;
+
+    }
+
+    .voice-box h2 {
+
+        font-size: 29px;
+
+    }
+
+    .voice-box p {
+
+        font-size: 17px;
+
+        line-height: 1.6;
+
+    }
+
+    .voice-btn {
+
+        width: 100%;
+
+        padding: 16px 20px;
+
+        font-size: 16px;
+
+    }
+
+    .the-end h2 {
+
+        letter-spacing: 6px;
+
+    }
+
+    .end-heart {
+
+        font-size: 65px;
+
+    }
+
+}
