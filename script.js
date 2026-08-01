@@ -269,6 +269,8 @@ loveBtn.addEventListener("click", () => {
 });
 const sendPromo = document.getElementById("sendPromo");
 
+const sendPromo = document.getElementById("sendPromo");
+
 if(sendPromo){
 
     sendPromo.addEventListener("click",()=>{
@@ -276,6 +278,72 @@ if(sendPromo){
         localStorage.setItem("showFinal","yes");
 
     });
+
+}
+
+document.addEventListener("visibilitychange",()=>{
+
+    if(
+
+        document.visibilityState==="visible" &&
+
+        localStorage.getItem("showFinal")==="yes"
+
+    ){
+
+        localStorage.removeItem("showFinal");
+
+        document.getElementById("giftModal").style.display="none";
+
+        startFinal();
+
+    }
+
+});
+
+function startFinal(){
+
+    const before=document.getElementById("beforeFinal");
+
+    before.style.display="flex";
+
+    const texts=document.querySelectorAll(".before-text");
+
+    texts.forEach((text,index)=>{
+
+        setTimeout(()=>{
+
+            text.classList.add("show");
+
+        },index*2500);
+
+        setTimeout(()=>{
+
+            text.classList.remove("show");
+
+        },index*2500+1800);
+
+    });
+
+    setTimeout(()=>{
+
+        before.style.display="none";
+
+        document.getElementById("finalStory").style.display="flex";
+
+        const lines=document.querySelectorAll(".final-box p");
+
+        lines.forEach((line,index)=>{
+
+            setTimeout(()=>{
+
+                line.classList.add("show");
+
+            },index*2200);
+
+        });
+
+    },11000);
 
 }
 

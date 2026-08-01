@@ -1245,3 +1245,90 @@ margin:30px 0;
     transform:translateY(0);
 
 }
+.before-final{
+
+    position:fixed;
+    inset:0;
+
+    background:#000;
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    z-index:999999;
+
+}
+
+.before-text{
+
+    color:white;
+
+    font-size:42px;
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    transition:1s;
+
+    position:absolute;
+
+}
+
+.before-text.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.final-story{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#000;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999999;
+
+}
+
+.final-box{
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.final-box p{
+
+    font-size:38px;
+
+    margin:28px 0;
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    transition:1s;
+
+}
+
+.final-box p.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
