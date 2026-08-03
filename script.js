@@ -137,11 +137,136 @@ const hero = document.querySelector(".hero");
 const startBtn = document.getElementById("startBtn");
 
 const music = document.getElementById("bgMusic");
+ 
+/* ================================= */
+/* МУЗЫКА МЕН ДАУЫСТЫ АРАЛАСТЫРУ */
+/* ================================= */
 
-startBtn.addEventListener("click",()=>{
+let audioContext = null;
 
-    music.play();
+let musicSourceNode = null;
+let musicGainNode = null;
 
+let voiceSourceNode = null;
+let voiceGainNode = null;
+
+
+function initAudioMixer() {
+
+    if (
+        audioContext &&
+        musicGainNode &&
+        voiceGainNode
+    ) {
+
+        return true;
+
+    }
+
+    const AudioContextClass =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    const voiceAudio =
+        document.getElementById("voiceMessage");
+
+    if (
+        !AudioContextClass ||
+        !music ||
+        !voiceAudio
+    ) {
+
+        console.error(
+            "Аудио элементтерінің бірі табылмады"
+        );
+
+        return false;
+
+    }
+
+    try {
+
+        audioContext =
+            new AudioContextClass();
+
+
+        /* Сайттың музыкасы */
+
+        musicSourceNode =
+            audioContext
+                .createMediaElementSource(music);
+
+        musicGainNode =
+            audioContext.createGain();
+
+        musicGainNode.gain.value = 1;
+
+        musicSourceNode
+            .connect(musicGainNode)
+            .connect(audioContext.destination);
+
+
+        /* Сенің даусың */
+
+        voiceSourceNode =
+            audioContext
+                .createMediaElementSource(voiceAudio);
+
+        voiceGainNode =
+            audioContext.createGain();
+
+        voiceGainNode.gain.value = 1;
+
+        voiceSourceNode
+            .connect(voiceGainNode)
+            .connect(audioContext.destination);
+
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Аудио миксер қосылмады:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+async function resumeAudioMixer() {
+
+    if (!initAudioMixer()) {
+
+        return false;
+
+    }
+
+    if (audioContext.state === "suspended") {
+
+        await audioContext.resume();
+
+    }
+
+    return true;
+
+}
+startBtn.addEventListener("click", async () => {
+
+    await resumeAudioMixer();
+
+    music.play().catch(error => {
+
+        console.error(
+            "Негізгі музыка қосылмады:",
+            error
+        );
+
+    });
     intro.classList.add("glow");
 
     for(let i=0;i<25;i++){
@@ -322,47 +447,44 @@ function fadeFinalMusicTo(
     duration = 700
 ) {
 
-    if (!finalBackgroundMusic) {
-        return;
-    }
+    if (!initAudioMixer()) {
 
-    clearInterval(finalMusicFadeTimer);
-
-    const startVolume =
-        finalBackgroundMusic.volume;
-
-    const difference =
-        targetVolume - startVolume;
-
-    const steps = 20;
-
-    let currentStep = 0;
-
-    finalMusicFadeTimer = setInterval(() => {
-
-        currentStep++;
-
-        const newVolume =
-            startVolume +
-            difference *
-            (currentStep / steps);
-
-        finalBackgroundMusic.volume =
-            Math.max(
-                0,
-                Math.min(1, newVolume)
-            );
-
-        if (currentStep >= steps) {
-
-            clearInterval(finalMusicFadeTimer);
+        if (finalBackgroundMusic) {
 
             finalBackgroundMusic.volume =
                 targetVolume;
 
         }
 
-    }, duration / steps);
+        return;
+
+    }
+
+    if (audioContext.state === "suspended") {
+
+        audioContext
+            .resume()
+            .catch(() => {});
+
+    }
+
+    const now =
+        audioContext.currentTime;
+
+    const gain =
+        musicGainNode.gain;
+
+    gain.cancelScheduledValues(now);
+
+    gain.setValueAtTime(
+        gain.value,
+        now
+    );
+
+    gain.linearRampToValueAtTime(
+        targetVolume,
+        now + duration / 1000
+    );
 
 }
 
@@ -720,6 +842,19 @@ if (voiceBtn && voiceMessage) {
                 /* Сенің даусыңды қосады */
 
                 await voiceMessage.play();
+                await resumeAudioMixer();
+
+voiceMessage.muted = false;
+voiceMessage.volume = 1;
+
+if (voiceGainNode && audioContext) {
+
+    voiceGainNode.gain.setValueAtTime(
+        1,
+        audioContext.currentTime
+    );
+
+}
 
 
                 voiceBtn.textContent =

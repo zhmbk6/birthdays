@@ -1984,3 +1984,45 @@ body.final-open{
     }
 
 }
+/* ================================= */
+/* ФИНАЛ ФОНЫН ТҮЗЕТУ */
+/* ================================= */
+
+.voice-video-overlay {
+
+    background: rgba(0, 0, 0, 0.22);
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+}
+
+.voice-box {
+
+    background: rgba(0, 0, 0, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 8px 35px rgba(0, 0, 0, 0.22);
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+}
+
+.voice-box h2,
+.voice-box p {
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(0, 0, 0, 0.6);
+
+}
+
+.voice-heart {
+
+    text-shadow:
+        0 2px 15px rgba(0, 0, 0, 0.8);
+
+}
