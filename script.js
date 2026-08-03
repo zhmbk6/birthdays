@@ -782,7 +782,7 @@ if (voiceBtn && voiceMessage) {
                 */
 
                 fadeFinalMusicTo(
-                    0.12,
+                    0.005,
                     700
                 );
 
