@@ -640,7 +640,7 @@ if (finalBackgroundMusic) {
 
     }
 
-    fadeFinalMusicTo(0.05, 700);
+    fadeFinalMusicTo(0.02, 700);
 
 }
 
@@ -782,7 +782,7 @@ if (voiceBtn && voiceMessage) {
                 */
 
                 fadeFinalMusicTo(
-                    0.005,
+                    0.002,
                     700
                 );
 
