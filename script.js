@@ -471,12 +471,58 @@ function showVoiceFinal() {
     voiceBtn.classList.remove("playing");
 
 
-    /* Финалды ашады */
+   /* Финал экранын ашады */
 
-    voiceSection.classList.add("active");
+voiceSection.classList.add("active");
+
+
+/* Видео сайтқа қайтқан бойда басталады */
+
+if (voiceBackgroundVideo) {
+
+    voiceBackgroundVideo.muted = true;
+    voiceBackgroundVideo.loop = true;
+
+    try {
+
+        voiceBackgroundVideo.currentTime = 0;
+
+    } catch (error) {
+
+        console.log("Видео әлі жүктелмеді");
+
+    }
+
+    voiceBackgroundVideo
+        .play()
+        .catch(error => {
+
+            console.error(
+                "Фондық видео қосылмады:",
+                error
+            );
+
+        });
 
 }
 
+
+/* Музыка сайтқа қайтқан бойда бәсеңдейді */
+
+if (finalBackgroundMusic) {
+
+    if (originalMusicVolume === null) {
+
+        originalMusicVolume =
+            finalBackgroundMusic.volume;
+
+    }
+
+    fadeFinalMusicTo(0.12, 700);
+
+}
+
+}
 
 /* ================================= */
 /* WHATSAPP-ТАН ҚАЙТҚАНЫН ТЕКСЕРУ */
@@ -485,23 +531,18 @@ function showVoiceFinal() {
 function checkVoiceFinal() {
 
     if (
-        localStorage.getItem(
-            "showVoiceFinal"
-        ) !== "yes"
+        localStorage.getItem("showVoiceFinal") !== "yes"
     ) {
 
         return;
 
     }
 
-    localStorage.removeItem(
-        "showVoiceFinal"
-    );
+    localStorage.removeItem("showVoiceFinal");
 
     showVoiceFinal();
 
 }
-
 
 window.addEventListener(
     "focus",
@@ -517,10 +558,7 @@ document.addEventListener(
     "visibilitychange",
     () => {
 
-        if (
-            document.visibilityState ===
-            "visible"
-        ) {
+        if (document.visibilityState === "visible") {
 
             checkVoiceFinal();
 
@@ -528,7 +566,6 @@ document.addEventListener(
 
     }
 );
-
 
 /* ================================= */
 /* ДАУЫС БАТЫРМАСЫ */
