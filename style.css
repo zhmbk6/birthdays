@@ -1420,6 +1420,10 @@ body.final-open{
 /* ДАУЫСТЫҚ ФИНАЛ */
 /* ============================= */
 
+/* ================================= */
+/* ДАУЫСТЫҚ ВИДЕО ФИНАЛ */
+/* ================================= */
+
 .voice-section {
 
     position: fixed;
@@ -1429,17 +1433,9 @@ body.final-open{
     justify-content: center;
     align-items: center;
 
-    padding: 25px;
+    padding: 20px;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #441428 0%,
-            #240914 45%,
-            #100307 100%
-        );
-
-    text-align: center;
+    background: #080305;
 
     overflow: hidden;
 
@@ -1448,7 +1444,7 @@ body.final-open{
 }
 
 
-/* WhatsApp-тан қайтқанда осы класс қосылады */
+/* WhatsApp-тан сайтқа қайтқанда ашылады */
 
 .voice-section.active {
 
@@ -1457,7 +1453,50 @@ body.final-open{
 }
 
 
-/* Дауыс тұрған карточка */
+/* Артқы фондағы видео */
+
+.voice-bg-video {
+
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: scale(1.04);
+
+    z-index: 0;
+
+}
+
+
+/* Видеоны нәзік қараңғылату */
+
+.voice-video-overlay {
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.52),
+            rgba(12, 0, 6, 0.72)
+        );
+
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+
+    z-index: 1;
+
+}
+
+
+/* ================================= */
+/* ДАУЫС КАРТОЧКАСЫ */
+/* ================================= */
 
 .voice-box {
 
@@ -1468,17 +1507,21 @@ body.final-open{
 
     padding: 55px 30px;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 30px;
 
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(15, 4, 10, 0.46);
 
     box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.55),
-        0 0 50px rgba(255, 71, 126, 0.12);
+        0 20px 70px rgba(0, 0, 0, 0.6),
+        0 0 45px rgba(255, 71, 126, 0.18);
 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    text-align: center;
+
+    z-index: 2;
 
     opacity: 1;
 
@@ -1513,14 +1556,17 @@ body.final-open{
 
     display: block;
 
-    font-size: 65px;
-
     margin-bottom: 22px;
 
-    filter:
-        drop-shadow(0 0 15px rgba(255, 71, 126, 0.7));
+    font-size: 65px;
 
-    animation: voiceHeartbeat 1.5s ease-in-out infinite;
+    filter:
+        drop-shadow(
+            0 0 18px rgba(255, 71, 126, 0.8)
+        );
+
+    animation:
+        voiceHeartbeat 1.5s ease-in-out infinite;
 
 }
 
@@ -1529,12 +1575,12 @@ body.final-open{
 
 .voice-box h2 {
 
+    margin: 0 0 18px;
+
     color: #ffffff;
 
     font-size: 38px;
     font-weight: 500;
-
-    margin: 0 0 18px;
 
     text-shadow:
         0 0 15px rgba(255, 255, 255, 0.25);
@@ -1546,12 +1592,12 @@ body.final-open{
 
 .voice-box p {
 
-    color: rgba(255, 255, 255, 0.78);
+    margin: 0 0 35px;
+
+    color: rgba(255, 255, 255, 0.82);
 
     font-size: 20px;
     line-height: 1.7;
-
-    margin: 0 0 35px;
 
 }
 
@@ -1571,7 +1617,7 @@ body.final-open{
         linear-gradient(
             135deg,
             #ff477e,
-            #d92d63
+            #d72d62
         );
 
     color: #ffffff;
@@ -1582,7 +1628,7 @@ body.final-open{
     cursor: pointer;
 
     box-shadow:
-        0 10px 35px rgba(255, 71, 126, 0.4),
+        0 12px 35px rgba(255, 71, 126, 0.45),
         0 0 20px rgba(255, 71, 126, 0.2);
 
     transition:
@@ -1598,7 +1644,7 @@ body.final-open{
     transform: translateY(-3px) scale(1.03);
 
     box-shadow:
-        0 15px 45px rgba(255, 71, 126, 0.55);
+        0 16px 45px rgba(255, 71, 126, 0.58);
 
 }
 
@@ -1610,24 +1656,24 @@ body.final-open{
 }
 
 
-/* Дауыс ойнап тұрғанда */
+/* Дауыс ойнап тұрған кезде */
 
 .voice-btn.playing {
 
     background:
         linear-gradient(
             135deg,
-            #8d2349,
-            #5e142f
+            #8e244a,
+            #5d142f
         );
 
     box-shadow:
-        0 0 35px rgba(255, 71, 126, 0.65);
+        0 0 35px rgba(255, 71, 126, 0.7);
 
 }
 
 
-/* Audio элементі экранда көрінбейді */
+/* Audio элементін жасырады */
 
 #voiceMessage {
 
@@ -1636,9 +1682,9 @@ body.final-open{
 }
 
 
-/* ============================= */
+/* ================================= */
 /* THE END */
-/* ============================= */
+/* ================================= */
 
 .the-end {
 
@@ -1650,12 +1696,12 @@ body.final-open{
     align-items: center;
     flex-direction: column;
 
-    padding: 20px;
+    padding: 25px;
 
     opacity: 0;
     visibility: hidden;
 
-    transform: scale(0.55);
+    transform: scale(0.6);
 
     filter: blur(15px);
 
@@ -1663,43 +1709,24 @@ body.final-open{
 
     pointer-events: none;
 
+    z-index: 3;
+
 }
 
 
-/* Дауыс аяқталғанда осы класс қосылады */
+/* Дауыс аяқталғанда шығады */
 
 .the-end.show {
 
     visibility: visible;
 
-    animation: showTheEnd 2.2s ease forwards;
+    animation:
+        showTheEnd 2.2s ease forwards;
 
 }
 
 
-/* The End мәтіні */
-
-.the-end h2 {
-
-    color: #ffffff;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: clamp(55px, 12vw, 120px);
-    font-weight: normal;
-
-    letter-spacing: 10px;
-
-    margin: 20px 0 0;
-
-    text-transform: uppercase;
-
-    animation: endGlow 2s ease-in-out infinite alternate;
-
-}
-
-
-/* The End үстіндегі жүрек */
+/* Финалдағы жүрек */
 
 .end-heart {
 
@@ -1708,16 +1735,96 @@ body.final-open{
     font-size: 80px;
 
     filter:
-        drop-shadow(0 0 25px rgba(255, 71, 126, 0.9));
+        drop-shadow(
+            0 0 25px rgba(255, 71, 126, 0.9)
+        );
 
-    animation: endHeartbeat 1.5s ease-in-out infinite;
+    animation:
+        endHeartbeat 1.5s ease-in-out infinite;
 
 }
 
 
-/* ============================= */
+/* The End жазуы */
+
+.the-end h2 {
+
+    margin: 20px 0;
+
+    color: #ffffff;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(55px, 12vw, 120px);
+
+    font-weight: normal;
+
+    letter-spacing: 10px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.65),
+        0 0 55px rgba(255, 71, 126, 0.8);
+
+}
+
+
+/* Финал мәтіні */
+
+.end-message {
+
+    margin: 5px 0 22px;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size:
+        clamp(20px, 4vw, 32px);
+
+    opacity: 0;
+
+}
+
+
+/* Қолтаңба */
+
+.end-signature {
+
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size:
+        clamp(17px, 3vw, 23px);
+
+    opacity: 0;
+
+}
+
+
+/* Мәтіндердің кезекпен шығуы */
+
+.the-end.show .end-message {
+
+    animation:
+        showEndText 1.3s ease 1.8s forwards;
+
+}
+
+
+.the-end.show .end-signature {
+
+    animation:
+        showEndText 1.3s ease 3.1s forwards;
+
+}
+
+
+/* ================================= */
 /* АНИМАЦИЯЛАР */
-/* ============================= */
+/* ================================= */
 
 @keyframes voiceHeartbeat {
 
@@ -1743,7 +1850,7 @@ body.final-open{
 
         opacity: 0;
 
-        transform: scale(0.55);
+        transform: scale(0.6);
 
         filter: blur(15px);
 
@@ -1753,7 +1860,7 @@ body.final-open{
 
         opacity: 1;
 
-        transform: scale(1.08);
+        transform: scale(1.07);
 
         filter: blur(0);
 
@@ -1772,21 +1879,25 @@ body.final-open{
 }
 
 
-@keyframes endGlow {
+@keyframes showEndText {
 
     from {
 
-        text-shadow:
-            0 0 10px rgba(255, 255, 255, 0.35),
-            0 0 25px rgba(255, 71, 126, 0.45);
+        opacity: 0;
+
+        transform: translateY(25px);
+
+        filter: blur(7px);
 
     }
 
     to {
 
-        text-shadow:
-            0 0 25px rgba(255, 255, 255, 0.85),
-            0 0 65px rgba(255, 71, 126, 0.95);
+        opacity: 1;
+
+        transform: translateY(0);
+
+        filter: blur(0);
 
     }
 
@@ -1811,9 +1922,9 @@ body.final-open{
 }
 
 
-/* ============================= */
+/* ================================= */
 /* ТЕЛЕФОНҒА АРНАЛҒАН */
-/* ============================= */
+/* ================================= */
 
 @media (max-width: 768px) {
 
@@ -1825,7 +1936,7 @@ body.final-open{
 
     .voice-box {
 
-        padding: 45px 22px;
+        padding: 44px 22px;
 
         border-radius: 25px;
 
@@ -1846,7 +1957,6 @@ body.final-open{
     .voice-box p {
 
         font-size: 17px;
-
         line-height: 1.6;
 
     }
@@ -1863,7 +1973,7 @@ body.final-open{
 
     .the-end h2 {
 
-        letter-spacing: 6px;
+        letter-spacing: 5px;
 
     }
 
