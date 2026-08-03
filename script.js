@@ -640,7 +640,7 @@ if (finalBackgroundMusic) {
 
     }
 
-    fadeFinalMusicTo(0.12, 700);
+    fadeFinalMusicTo(0.05, 700);
 
 }
 
@@ -850,7 +850,7 @@ voiceMessage.volume = 1;
 if (voiceGainNode && audioContext) {
 
     voiceGainNode.gain.setValueAtTime(
-        1,
+        1.35,
         audioContext.currentTime
     );
 

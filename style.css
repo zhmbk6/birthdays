@@ -1763,9 +1763,9 @@ body.final-open{
 
     font-weight: normal;
 
-    letter-spacing: 10px;
+    letter-spacing: 3px;
 
-    text-transform: uppercase;
+    text-transform: none;
 
     text-shadow:
         0 0 20px rgba(255, 255, 255, 0.65),
