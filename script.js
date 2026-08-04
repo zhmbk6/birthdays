@@ -443,6 +443,7 @@ let finalMusicFadeTimer = null;
 /* ================================= */
 
 function fadeFinalMusicTo(
+function  fadeFinalMusicTo(
     targetVolume,
     duration = 700
 ) {
@@ -640,7 +641,7 @@ if (finalBackgroundMusic) {
 
     }
 
-    fadeFinalMusicTo(0.02, 700);
+    fadeFinalMusicTo(0.03, 700);
 
 }
 
@@ -782,7 +783,7 @@ if (voiceBtn && voiceMessage) {
                 */
 
                 fadeFinalMusicTo(
-                    0.002,
+                    0.003,
                     700
                 );
 
