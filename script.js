@@ -442,7 +442,6 @@ let finalMusicFadeTimer = null;
 /* МУЗЫКАНЫ БАЯУ БӘСЕҢДЕТУ */
 /* ================================= */
 
-function fadeFinalMusicTo(
 function  fadeFinalMusicTo(
     targetVolume,
     duration = 700
