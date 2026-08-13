@@ -2026,3 +2026,376 @@ body.final-open{
         0 2px 15px rgba(0, 0, 0, 0.8);
 
 }
+/* ================================= */
+/* QAZAQ REPUBLIC GIFT CARD */
+/* ================================= */
+
+.gift-box {
+
+    width: 92%;
+    max-width: 470px;
+
+    padding: 35px 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8fb
+        );
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.28);
+
+}
+
+
+/* Gift card */
+
+.qr-gift-card {
+
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1.58 / 1;
+
+    padding: 25px;
+
+    overflow: hidden;
+
+    border-radius: 26px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111111 0%,
+            #202020 45%,
+            #0b0b0b 100%
+        );
+
+    box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.35);
+
+    opacity: 0;
+
+    transform:
+        translateY(30px)
+        scale(0.92);
+
+    animation:
+        giftCardReveal 1s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+
+}
+
+
+/* Жұмсақ жарық */
+
+.qr-gift-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    top: -150px;
+    right: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.20),
+            transparent 65%
+        );
+
+    border-radius: 50%;
+
+}
+
+
+/* Кішкентай декоративный шеңбер */
+
+.qr-gift-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    left: -80px;
+    bottom: -100px;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius: 50%;
+
+}
+
+
+/* Жоғарғы бөлік */
+
+.gift-card-top {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+}
+
+
+.gift-card-small {
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    font-weight: 600;
+
+    opacity: .65;
+
+}
+
+
+.gift-card-heart {
+
+    font-size: 23px;
+
+    color: #ff477e;
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(255,71,126,.7)
+        );
+
+}
+
+
+/* Ортасы */
+
+.gift-card-center {
+
+    position: absolute;
+
+    left: 25px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    z-index: 2;
+
+}
+
+
+.gift-card-brand {
+
+    font-size:
+        clamp(30px, 8vw, 43px);
+
+    line-height: .92;
+
+    letter-spacing: -1px;
+
+    font-weight: 900;
+
+}
+
+
+/* Төменгі бөлік */
+
+.gift-card-bottom {
+
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 24px;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: flex-end;
+
+}
+
+
+.gift-card-amount {
+
+    font-size:
+        clamp(22px, 6vw, 31px);
+
+    font-weight: 700;
+
+}
+
+
+.gift-card-for {
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    opacity: .55;
+
+}
+
+
+/* Забрать подарок */
+
+#giftContent .gift-btn {
+
+    display: inline-flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 17px 25px;
+
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff477e,
+            #e52e6b
+        );
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 12px 30px
+        rgba(255,71,126,.32);
+
+    opacity: 0;
+
+    animation:
+        giftButtonReveal
+        .8s ease
+        .65s forwards;
+
+}
+
+
+/* CARD ANIMATION */
+
+@keyframes giftCardReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(35px)
+            scale(.90)
+            rotateX(10deg);
+
+        filter: blur(7px);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1)
+            rotateX(0);
+
+        filter: blur(0);
+
+    }
+
+}
+
+
+@keyframes giftButtonReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* Телефон */
+
+@media(max-width: 600px) {
+
+    .gift-box {
+
+        padding: 25px 17px;
+
+    }
+
+    .qr-gift-card {
+
+        padding: 21px;
+
+        border-radius: 23px;
+
+    }
+
+    .gift-card-center {
+
+        left: 21px;
+
+    }
+
+    .gift-card-bottom {
+
+        left: 21px;
+        right: 21px;
+        bottom: 21px;
+
+    }
+
+}

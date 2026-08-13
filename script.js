@@ -345,14 +345,30 @@ showGift.addEventListener("click",()=>{
     giftLoading.style.display="block";
 
     giftContent.style.display="none";
+setTimeout(() => {
 
-    setTimeout(()=>{
+    giftLoading.style.display = "none";
 
-        giftLoading.style.display="none";
+    giftContent.style.display = "block";
 
-        giftContent.style.display="block";
 
-    },2500);
+    const card =
+        giftContent.querySelector(
+            ".qr-gift-card"
+        );
+
+    if (card) {
+
+        card.style.animation = "none";
+
+        card.offsetHeight;
+
+        card.style.animation =
+            "giftCardReveal 1s cubic-bezier(.2,.8,.2,1) forwards";
+
+    }
+
+}, 1800);
 
 });
 const loveBtn = document.getElementById("loveBtn");
