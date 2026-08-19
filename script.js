@@ -332,45 +332,99 @@ galleryImages.forEach(image=>{
 });
 const showGift = document.getElementById("showGift");
 
-const giftModal = document.getElementById("giftModal");
+if (showGift) {
 
-const giftLoading = document.getElementById("giftLoading");
+    showGift.addEventListener("click", async () => {
 
-const giftContent = document.getElementById("giftContent");
+        /* Ескі WhatsApp финалын өшіреміз */
 
-showGift.addEventListener("click",()=>{
-
-    giftModal.style.display="flex";
-
-    giftLoading.style.display="block";
-
-    giftContent.style.display="none";
-setTimeout(() => {
-
-    giftLoading.style.display = "none";
-
-    giftContent.style.display = "block";
+        localStorage.removeItem("showVoiceFinal");
 
 
-    const card =
-        giftContent.querySelector(
-            ".qr-gift-card"
-        );
+        /* Видео финалын ашамыз */
 
-    if (card) {
+        showVoiceFinal();
 
-        card.style.animation = "none";
 
-        card.offsetHeight;
+        /*
+        "Закрой глаза..." карточкасын көрсетпейміз.
+        Себебі негізгі Послушать меня батырмасы
+        алдыңғы бетте басылып қойды.
+        */
 
-        card.style.animation =
-            "giftCardReveal 1s cubic-bezier(.2,.8,.2,1) forwards";
+        if (voiceBox) {
 
-    }
+            voiceBox.style.display = "none";
 
-}, 1800);
+        }
 
-});
+
+        /* Аудио миксерді іске қосу */
+
+        if (
+            typeof resumeAudioMixer === "function"
+        ) {
+
+            await resumeAudioMixer();
+
+        }
+
+
+        /* Музыканы бәсеңдету */
+
+        if (
+            typeof fadeFinalMusicTo === "function"
+        ) {
+
+            fadeFinalMusicTo(0.05, 700);
+
+        }
+
+
+        /* Сенің даусың */
+
+        if (voiceMessage) {
+
+            voiceMessage.muted = false;
+
+            voiceMessage.volume = 1;
+
+
+            /* Дауысты күшейту */
+
+            if (
+                typeof voiceGainNode !== "undefined" &&
+                voiceGainNode &&
+                typeof audioContext !== "undefined" &&
+                audioContext
+            ) {
+
+                voiceGainNode.gain.setValueAtTime(
+                    1.35,
+                    audioContext.currentTime
+                );
+
+            }
+
+
+            try {
+
+                await voiceMessage.play();
+
+            } catch (error) {
+
+                console.error(
+                    "Дауыс қосылмады:",
+                    error
+                );
+
+            }
+
+        }
+
+    });
+
+}
 const loveBtn = document.getElementById("loveBtn");
 const loveValue = document.getElementById("loveValue");
 const loveMessage = document.getElementById("loveMessage");
@@ -417,7 +471,7 @@ loveBtn.addEventListener("click", () => {
 /* ================================= */
 
 const sendPromo =
-    document.getElementById("sendPromo");
+   null
 
 const voiceSection =
     document.getElementById("voiceSection");
