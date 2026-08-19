@@ -2399,3 +2399,25 @@ body.final-open{
     }
 
 }
+/* Начать басылғанға дейін видео жасырын */
+
+.voice-bg-video {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.voice-section.started .voice-bg-video {
+    opacity: 1;
+}
+
+
+/* Начать басылғанға дейін фон */
+
+.voice-section {
+    background:
+        linear-gradient(
+            135deg,
+            #18070f,
+            #080305
+        );
+}

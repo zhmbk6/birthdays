@@ -330,101 +330,22 @@ galleryImages.forEach(image=>{
     observer.observe(image);
 
 });
+
 const showGift = document.getElementById("showGift");
 
 if (showGift) {
 
-    showGift.addEventListener("click", async () => {
+    showGift.addEventListener("click", () => {
 
-        /* Ескі WhatsApp финалын өшіреміз */
-
-        localStorage.removeItem("showVoiceFinal");
-
-
-        /* Видео финалын ашамыз */
+        /* Финал экранын ғана ашады.
+           Видео мен дауыс әлі басталмайды. */
 
         showVoiceFinal();
-
-
-        /*
-        "Закрой глаза..." карточкасын көрсетпейміз.
-        Себебі негізгі Послушать меня батырмасы
-        алдыңғы бетте басылып қойды.
-        */
-
-        if (voiceBox) {
-
-            voiceBox.style.display = "none";
-
-        }
-
-
-        /* Аудио миксерді іске қосу */
-
-        if (
-            typeof resumeAudioMixer === "function"
-        ) {
-
-            await resumeAudioMixer();
-
-        }
-
-
-        /* Музыканы бәсеңдету */
-
-        if (
-            typeof fadeFinalMusicTo === "function"
-        ) {
-
-            fadeFinalMusicTo(0.05, 700);
-
-        }
-
-
-        /* Сенің даусың */
-
-        if (voiceMessage) {
-
-            voiceMessage.muted = false;
-
-            voiceMessage.volume = 1;
-
-
-            /* Дауысты күшейту */
-
-            if (
-                typeof voiceGainNode !== "undefined" &&
-                voiceGainNode &&
-                typeof audioContext !== "undefined" &&
-                audioContext
-            ) {
-
-                voiceGainNode.gain.setValueAtTime(
-                    1.35,
-                    audioContext.currentTime
-                );
-
-            }
-
-
-            try {
-
-                await voiceMessage.play();
-
-            } catch (error) {
-
-                console.error(
-                    "Дауыс қосылмады:",
-                    error
-                );
-
-            }
-
-        }
 
     });
 
 }
+
 const loveBtn = document.getElementById("loveBtn");
 const loveValue = document.getElementById("loveValue");
 const loveMessage = document.getElementById("loveMessage");
@@ -463,15 +384,8 @@ loveBtn.addEventListener("click", () => {
 
 });
 /* ============================= */
-/* ДАУЫСТЫҚ ФИНАЛ */
-/* ============================= */
-
-/* ================================= */
 /* ДАУЫСТЫҚ ВИДЕО ФИНАЛ */
-/* ================================= */
-
-const sendPromo =
-   null
+/* ============================= */
 
 const voiceSection =
     document.getElementById("voiceSection");
@@ -491,28 +405,20 @@ const voiceBackgroundVideo =
 const theEnd =
     document.getElementById("theEnd");
 
-/*
-Сайттың негізгі музыкасы.
-Бұрынғы const music айнымалысымен қайталанбас үшін
-басқа атау қолдандық.
-*/
-
 const finalBackgroundMusic =
     document.getElementById("bgMusic");
 
 
 let voiceFinalOpened = false;
-
+let finalStarted = false;
 let originalMusicVolume = null;
 
-let finalMusicFadeTimer = null;
-
 
 /* ================================= */
-/* МУЗЫКАНЫ БАЯУ БӘСЕҢДЕТУ */
+/* МУЗЫКАНЫ БӘСЕҢДЕТУ */
 /* ================================= */
 
-function  fadeFinalMusicTo(
+function fadeFinalMusicTo(
     targetVolume,
     duration = 700
 ) {
@@ -560,406 +466,305 @@ function  fadeFinalMusicTo(
 
 
 /* ================================= */
-/* WHATSAPP БАТЫРМАСЫ */
-/* ================================= */
-
-if (sendPromo) {
-
-    sendPromo.addEventListener("click", () => {
-
-        localStorage.setItem(
-            "showVoiceFinal",
-            "yes"
-        );
-
-    });
-
-}
-
-
-/* ================================= */
-/* ДАУЫС ФИНАЛЫН АШУ */
+/* ФИНАЛ ЭКРАНЫН АШУ */
 /* ================================= */
 
 function showVoiceFinal() {
-
-    if (voiceFinalOpened) {
-        return;
-    }
 
     if (
         !voiceSection ||
         !voiceBox ||
         !voiceBtn ||
         !voiceMessage ||
+        !voiceBackgroundVideo ||
         !theEnd
     ) {
 
         console.error(
-            "Дауыс финалының HTML элементтері табылмады"
+            "Финалдың HTML элементтері табылмады"
         );
 
         return;
 
     }
 
+
     voiceFinalOpened = true;
+    finalStarted = false;
 
 
-    /* Промокод терезесін жабады */
+    /* Бетті тоқтату */
 
-    const currentGiftModal =
-        document.getElementById("giftModal");
-
-    if (currentGiftModal) {
-
-        currentGiftModal.style.display = "none";
-
-    }
+    document.body.style.overflow =
+        "hidden";
 
 
-    /* Беттің төмен-жоғары қозғалуын тоқтатады */
+    /* Финал экранын көрсету */
 
-    document.body.style.overflow = "hidden";
+    voiceSection.classList.add(
+        "active"
+    );
 
-
-    /* Дауыс пен видеоны бастапқы күйге әкеледі */
-
-    voiceMessage.pause();
-    voiceMessage.currentTime = 0;
-
-    if (voiceBackgroundVideo) {
-
-        voiceBackgroundVideo.pause();
-
-        try {
-
-            voiceBackgroundVideo.currentTime = 0;
-
-        } catch (error) {
-
-            console.log(
-                "Видео әлі толық жүктелмеді"
-            );
-
-        }
-
-        voiceBackgroundVideo.muted = true;
-
-    }
+    voiceSection.classList.remove(
+        "started"
+    );
 
 
-    /* Карточканы бастапқы күйге әкеледі */
+    /* Начать карточкасын көрсету */
 
     voiceBox.style.display = "";
 
-    voiceBox.classList.remove("finished");
+    voiceBox.classList.remove(
+        "finished"
+    );
 
-    theEnd.classList.remove("show");
+
+    /* Концовканы жасыру */
+
+    theEnd.classList.remove(
+        "show"
+    );
+
+
+    /* Батырма */
+
+    voiceBtn.disabled = false;
+
+    voiceBtn.classList.remove(
+        "playing"
+    );
 
     voiceBtn.textContent =
-        "▶ Послушать меня";
-
-    voiceBtn.classList.remove("playing");
+        "▶ Начать";
 
 
-   /* Финал экранын ашады */
+    /* Дауыс әлі басталмайды */
 
-voiceSection.classList.add("active");
+    voiceMessage.pause();
+
+    voiceMessage.currentTime = 0;
+
+    voiceMessage.muted = false;
 
 
-/* Видео сайтқа қайтқан бойда басталады */
+    /* Видео да әлі басталмайды */
 
-if (voiceBackgroundVideo) {
+    voiceBackgroundVideo.pause();
 
     voiceBackgroundVideo.muted = true;
+
     voiceBackgroundVideo.loop = true;
 
     try {
 
-        voiceBackgroundVideo.currentTime = 0;
+        voiceBackgroundVideo.currentTime =
+            0;
 
-    } catch (error) {
+    } catch (error) {}
 
-        console.log("Видео әлі жүктелмеді");
+}
 
-    }
 
+/* ================================= */
+/* ▶ НАЧАТЬ */
+/* ================================= */
+
+if (
+    voiceBtn &&
+    voiceMessage &&
     voiceBackgroundVideo
-        .play()
-        .catch(error => {
-
-            console.error(
-                "Фондық видео қосылмады:",
-                error
-            );
-
-        });
-
-}
-
-
-/* Музыка сайтқа қайтқан бойда бәсеңдейді */
-
-if (finalBackgroundMusic) {
-
-    if (originalMusicVolume === null) {
-
-        originalMusicVolume =
-            finalBackgroundMusic.volume;
-
-    }
-
-    fadeFinalMusicTo(0.03, 700);
-
-}
-
-}
-
-/* ================================= */
-/* WHATSAPP-ТАН ҚАЙТҚАНЫН ТЕКСЕРУ */
-/* ================================= */
-
-function checkVoiceFinal() {
-
-    if (
-        localStorage.getItem("showVoiceFinal") !== "yes"
-    ) {
-
-        return;
-
-    }
-
-    localStorage.removeItem("showVoiceFinal");
-
-    showVoiceFinal();
-
-}
-
-window.addEventListener(
-    "focus",
-    checkVoiceFinal
-);
-
-window.addEventListener(
-    "pageshow",
-    checkVoiceFinal
-);
-
-document.addEventListener(
-    "visibilitychange",
-    () => {
-
-        if (document.visibilityState === "visible") {
-
-            checkVoiceFinal();
-
-        }
-
-    }
-);
-
-checkVoiceFinal();
-
-/* ================================= */
-/* ДАУЫС БАТЫРМАСЫ */
-/* ================================= */
-
-if (voiceBtn && voiceMessage) {
+) {
 
     voiceBtn.addEventListener(
         "click",
         async () => {
 
-            /*
-            Дауыс ойнап тұрса:
-            дауыс пен видеоны паузаға қояды.
-            */
-
-            if (!voiceMessage.paused) {
-
-                voiceMessage.pause();
-
-                if (voiceBackgroundVideo) {
-
-                    voiceBackgroundVideo.pause();
-
-                }
-
-
-                /*
-                Музыканы бұрынғы деңгейіне
-                қайта көтереді.
-                */
-
-                if (
-                    finalBackgroundMusic &&
-                    originalMusicVolume !== null
-                ) {
-
-                    fadeFinalMusicTo(
-                        originalMusicVolume,
-                        500
-                    );
-
-                }
-
-                voiceBtn.textContent =
-                    "▶ Продолжить";
-
-                voiceBtn.classList.remove(
-                    "playing"
-                );
+            if (finalStarted) {
 
                 return;
 
             }
 
 
-            /*
-            Фондық музыка тоқтамайды.
-            Тек дауыстың астында бәсеңдейді.
-            */
-
-            if (finalBackgroundMusic) {
-
-                if (
-                    originalMusicVolume === null
-                ) {
-
-                    originalMusicVolume =
-                        finalBackgroundMusic.volume;
-
-                }
+            finalStarted = true;
 
 
-                /*
-                Музыка қандай да бір себеппен
-                тоқтап тұрса, қайта қосады.
-                */
+            voiceBtn.disabled = true;
 
-                if (finalBackgroundMusic.paused) {
-
-                    finalBackgroundMusic
-                        .play()
-                        .catch(() => {});
-
-                }
-
-
-                /*
-                0.12 = музыканың 12% деңгейі.
-                */
-
-                fadeFinalMusicTo(
-                    0.003,
-                    700
-                );
-
-            }
+            voiceBtn.textContent =
+                "Начинаем... ❤️";
 
 
             try {
 
-                voiceMessage.volume = 1;
+                /* Аудио миксерді іске қосу */
+
+                await resumeAudioMixer();
 
 
-                /*
-                Дауыс алғаш рет басталса,
-                видео да басынан басталады.
-                */
+                /* ======================= */
+                /* НЕГІЗГІ МУЗЫКА */
+                /* ======================= */
 
-                if (
-                    voiceBackgroundVideo &&
-                    voiceMessage.currentTime === 0
-                ) {
+                if (finalBackgroundMusic) {
 
-                    try {
+                    if (
+                        originalMusicVolume ===
+                        null
+                    ) {
 
-                        voiceBackgroundVideo.currentTime = 0;
+                        originalMusicVolume =
+                            finalBackgroundMusic.volume;
 
-                    } catch (error) {
+                    }
 
-                        console.log(
-                            "Видео әлі дайын емес"
-                        );
+
+                    /* Музыка тоқтап тұрса */
+
+                    if (
+                        finalBackgroundMusic.paused
+                    ) {
+
+                        await finalBackgroundMusic
+                            .play()
+                            .catch(() => {});
 
                     }
 
                 }
 
 
-                /* Дыбыссыз видеоны қосады */
+                /* Музыканы 5%-ға түсіреміз */
 
-                if (voiceBackgroundVideo) {
+                fadeFinalMusicTo(
+                    0.05,
+                    700
+                );
 
-                    voiceBackgroundVideo.muted = true;
 
-                    voiceBackgroundVideo
-                        .play()
-                        .catch(error => {
+                /* ======================= */
+                /* ВИДЕО */
+                /* ======================= */
 
-                            console.log(
-                                "Фон видео қосылмады:",
-                                error
-                            );
+                voiceBackgroundVideo.pause();
 
-                        });
+                try {
+
+                    voiceBackgroundVideo.currentTime =
+                        0;
+
+                } catch (error) {}
+
+
+                voiceBackgroundVideo.muted =
+                    true;
+
+                /*
+                Видео біткен сайын
+                қайта басталады.
+                Концовка шыққанда да
+                тоқтамайды.
+                */
+
+                voiceBackgroundVideo.loop =
+                    true;
+
+
+                /* ======================= */
+                /* ДАУЫС */
+                /* ======================= */
+
+                voiceMessage.pause();
+
+                voiceMessage.currentTime =
+                    0;
+
+                voiceMessage.muted =
+                    false;
+
+                voiceMessage.volume =
+                    1;
+
+
+                /* Дауысты күшейту */
+
+                if (
+                    voiceGainNode &&
+                    audioContext
+                ) {
+
+                    voiceGainNode.gain
+                        .setValueAtTime(
+                            1.35,
+                            audioContext.currentTime
+                        );
 
                 }
 
 
-                /* Сенің даусыңды қосады */
+                /* ======================= */
+                /* ВИДЕО + ДАУЫС БІРГЕ */
+                /* ======================= */
 
-                await voiceMessage.play();
-                await resumeAudioMixer();
+                const videoPromise =
+                    voiceBackgroundVideo.play();
 
-voiceMessage.muted = false;
-voiceMessage.volume = 1;
-
-if (voiceGainNode && audioContext) {
-
-    voiceGainNode.gain.setValueAtTime(
-        1.35,
-        audioContext.currentTime
-    );
-
-}
+                const voicePromise =
+                    voiceMessage.play();
 
 
-                voiceBtn.textContent =
-                    "⏸ Пауза";
+                await Promise.all([
 
-                voiceBtn.classList.add(
-                    "playing"
+                    videoPromise,
+                    voicePromise
+
+                ]);
+
+
+                /*
+                Видео дәл қазір ғана
+                көрінеді
+                */
+
+                voiceSection.classList.add(
+                    "started"
                 );
+
+
+                /*
+                Начать карточкасын
+                жоғалтамыз
+                */
+
+                voiceBox.classList.add(
+                    "finished"
+                );
+
+
+                setTimeout(() => {
+
+                    voiceBox.style.display =
+                        "none";
+
+                }, 900);
+
 
             } catch (error) {
 
                 console.error(
-                    "Дауыс қосылмады:",
+                    "Финал қосылмады:",
                     error
                 );
 
+
+                finalStarted = false;
+
+
+                voiceBtn.disabled =
+                    false;
+
                 voiceBtn.textContent =
-                    "Не удалось включить";
-
-
-                /*
-                Қате болса, музыканы қайта көтереді.
-                */
-
-                if (
-                    finalBackgroundMusic &&
-                    originalMusicVolume !== null
-                ) {
-
-                    fadeFinalMusicTo(
-                        originalMusicVolume,
-                        500
-                    );
-
-                }
+                    "▶ Начать";
 
             }
 
@@ -968,24 +773,37 @@ if (voiceGainNode && audioContext) {
 
 
     /* ================================= */
-    /* ДАУЫС АЯҚТАЛҒАНДА */
+    /* ДАУЫС БІТКЕНДЕ */
     /* ================================= */
 
     voiceMessage.addEventListener(
         "ended",
         () => {
 
-            voiceBtn.textContent =
-                "Прослушано ❤️";
 
-            voiceBtn.classList.remove(
-                "playing"
-            );
+            /*
+            ВИДЕОНЫ ТОҚТАТПАЙМЫЗ
+            */
+
+            voiceBackgroundVideo.loop =
+                true;
+
+
+            if (
+                voiceBackgroundVideo.paused
+            ) {
+
+                voiceBackgroundVideo
+                    .play()
+                    .catch(() => {});
+
+            }
 
 
             /*
-            Музыканы бұрынғы дауысына
-            біртіндеп қайта көтереді.
+            Музыка да тоқтамайды.
+            Тек қайта бұрынғы
+            дауысына көтеріледі.
             */
 
             if (
@@ -993,42 +811,27 @@ if (voiceGainNode && audioContext) {
                 originalMusicVolume !== null
             ) {
 
-                const volumeToRestore =
-                    originalMusicVolume;
-
                 fadeFinalMusicTo(
-                    volumeToRestore,
-                    1200
+                    originalMusicVolume,
+                    1500
                 );
-
-                originalMusicVolume = null;
 
             }
 
 
-            /* Карточканы жоғалтады */
-
-            voiceBox.classList.add(
-                "finished"
-            );
-
-
             /*
-            Видео тоқтамайды.
-            Ол The End мәтінінің артында
-            ойнай береді.
+            Концовка шығады.
+            Видео артында
+            ары қарай ойнайды.
             */
 
             setTimeout(() => {
-
-                voiceBox.style.display =
-                    "none";
 
                 theEnd.classList.add(
                     "show"
                 );
 
-            }, 1000);
+            }, 700);
 
         }
     );
